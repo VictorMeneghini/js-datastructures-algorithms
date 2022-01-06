@@ -3,7 +3,7 @@ import { Stack } from './stack'
 const stack = new Stack()
 
 describe('Stack', () => {
-  test('should return value ', () => {
-    expect(stack.great()).toBe('hello world')
-  });
-});
+  test('should return an empty stack', () => {
+    expect(stack.size()).toBe(0)
+  })
+})
