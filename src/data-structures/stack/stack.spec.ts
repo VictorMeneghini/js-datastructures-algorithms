@@ -4,7 +4,7 @@ const stackFactory = (): Stack => {
   return new Stack()
 }
 
-describe('Stack', () => {
+describe('Data Structures :: Stack', () => {
   test('Should return right number of pushed items', () => {
     const stack = stackFactory()
 

@@ -1,51 +1,84 @@
+interface Iitems {[key: string|number]: string | number}
+
 interface Iset {
-  has (element: string | number): Boolean
-  add (element: string | number): Boolean
-  delete (element: string | number): Boolean
-  size (): number
-  values (): Array<string | number>
+  has: (element: string | number) => boolean
+  add: (element: string | number) => boolean
+  delete: (element: string | number) => boolean
+  size: () => number
+  values: () => Array<string | number>
 }
-
 export default class Set implements Iset {
-  private items
+  private items: Iitems
 
-  constructor() {
+  constructor () {
     this.items = {}
   }
 
-  values() {
-    let values = []
+  values (): Array<string | number> {
+    const values = []
 
-    for (let key in this.items) {
-      if(this.items.hasOwnProperty(key)){
+    for (const key in this.items) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (this.items.hasOwnProperty(key)) {
         values.push(this.items[key])
       }
     }
     return values
   }
 
-  add(element: string | number) {
-    if(!this.has(element)) {
+  add (element: string | number): boolean {
+    if (!this.has(element)) {
       this.items[element] = element
       return true
     }
     return false
   }
 
-  has(element: string | number) {
+  has (element: string | number): boolean {
+    // eslint-disable-next-line no-prototype-builtins
     return this.items.hasOwnProperty(element)
   }
 
-  delete(element: string | number): Boolean {
-    if(this.has(element)) {
+  delete (element: string | number): boolean {
+    if (this.has(element)) {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.items[element]
       return true
     }
     return false
   }
 
-  size() {
+  size (): number {
     return Object.keys(this.items).length
   }
-  
+
+  union (otherSet: Set): Set {
+    const unionSet = new Set()
+    this.values().forEach(value => unionSet.add(value))
+    otherSet.values().forEach(value => unionSet.add(value))
+    return unionSet
+  }
+
+  intersection (otherSet: Set): Set {
+    const intersectionSet = new Set()
+
+    const values = this.values()
+    const otherValues = otherSet.values()
+
+    let biggerSet = values
+    let smallerSet = otherValues
+
+    if (otherValues.length - values.length > 0) {
+      biggerSet = otherValues
+      smallerSet = values
+    }
+
+    smallerSet.forEach(value => {
+      if (biggerSet.includes(value)) {
+        intersectionSet.add(value)
+      }
+    })
+
+    return intersectionSet
+  }
 }
