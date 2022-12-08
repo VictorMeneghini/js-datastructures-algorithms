@@ -1,7 +1,7 @@
 {
   "name": "js-datastructures-algorithms",
   "version": "1.0.0",
-  "description": "",
+  "description": "cluster of knowledge and studies on the most diverse topics",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --silent=false"
