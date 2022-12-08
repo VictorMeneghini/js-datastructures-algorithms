@@ -68,7 +68,7 @@ export default class Set implements Iset {
     let biggerSet = values
     let smallerSet = otherValues
 
-    if (otherValues.length - values.length > 0) {
+    if (otherValues.length > values.length) {
       biggerSet = otherValues
       smallerSet = values
     }
@@ -80,5 +80,17 @@ export default class Set implements Iset {
     })
 
     return intersectionSet
+  }
+
+  difference (otherSet: Set): Set {
+    const differenceSet = new Set()
+
+    this.values().forEach(value => {
+      if (!otherSet.has(value)) {
+        differenceSet.add(value)
+      }
+    })
+
+    return differenceSet
   }
 }

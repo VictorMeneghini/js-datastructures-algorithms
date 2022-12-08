@@ -105,4 +105,22 @@ describe('Data Structures :: Set', () => {
 
     expect(results.values()).toStrictEqual([1, 'name'])
   })
+
+  test('Should return right values for difference operation', () => {
+    const setA = setFactory()
+    const setB = setFactory()
+
+    setA.add(1)
+    setA.add(2)
+    setA.add('name')
+
+    setB.add(1)
+    setB.add(33)
+    setB.add('name')
+    setB.add(4)
+
+    const results = setA.difference(setB)
+
+    expect(results.values()).toStrictEqual([2])
+  })
 })
