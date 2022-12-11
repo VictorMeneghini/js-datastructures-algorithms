@@ -14,4 +14,42 @@ describe('Data Structures :: Dictionary', () => {
     const dictionary = dictionaryFactory()
     expect(dictionary.hasKey('name')).toBeFalsy()
   })
+
+  test('Should insert a new value properly', () => {
+    const dictionary = dictionaryFactory()
+
+    expect(dictionary.set('teste', 1)).toBeTruthy()
+  })
+
+  test('Should do not insert if key or value is undefined or null', () => {
+    const dictionary = dictionaryFactory()
+
+    expect(dictionary.set(undefined, undefined)).toBeFalsy()
+    expect(dictionary.set(1, undefined)).toBeFalsy()
+    expect(dictionary.set(undefined, 1)).toBeFalsy()
+  })
+
+  test('Should delete element property', () => {
+    const dictionary = dictionaryFactory()
+    dictionary.set('test', 1)
+
+    expect(dictionary.remove('test')).toBeTruthy()
+    expect(dictionary.remove('anotherTest')).toBeFalsy()
+  })
+
+  test('Should get value properly', () => {
+    const dictionary = dictionaryFactory()
+    dictionary.set('test', 1)
+
+    expect(dictionary.get('test')).toBe(1)
+    expect(dictionary.get('anotherTest')).toBe(undefined)
+  })
+
+  test('Should return all keys', () => {
+    const dictionary = dictionaryFactory()
+    dictionary.set('test', 1)
+    dictionary.set('anotherTest', 2)
+
+    expect(dictionary.keyValues()).toStrictEqual(['test', 'anotherTest'])
+  })
 })
