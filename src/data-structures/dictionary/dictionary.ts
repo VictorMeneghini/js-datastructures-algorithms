@@ -1,6 +1,8 @@
 import { defaultToString } from '../../utils/defaultToString'
 
-interface IDictionaryTable {[key: string]: any}
+interface IDictionaryTable {
+  [key: string]: any
+}
 
 interface IDictionary {
   hasKey: (key: any) => boolean
@@ -8,9 +10,10 @@ interface IDictionary {
   remove: (key: any) => boolean
   get: (key: any) => any | undefined
   keyValues: () => any[]
+  keys: () => any[]
 }
 
-class ValuePair {
+export class ValuePair {
   private readonly key: any
   private readonly value: any
 
@@ -61,6 +64,10 @@ export default class Dictionary implements IDictionary {
   }
 
   keyValues (): any[] {
-    return Object.keys(this.table)
+    return Object.values(this.table)
+  }
+
+  keys (): any[] {
+    return this.keyValues().map((valuePair) => valuePair.key)
   }
 }

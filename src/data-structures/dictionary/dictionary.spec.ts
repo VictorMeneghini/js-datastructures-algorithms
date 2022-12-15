@@ -1,4 +1,4 @@
-import Dictionary from './dictionary'
+import Dictionary, { ValuePair } from './dictionary'
 
 const dictionaryFactory = (): Dictionary => {
   return new Dictionary()
@@ -45,11 +45,19 @@ describe('Data Structures :: Dictionary', () => {
     expect(dictionary.get('anotherTest')).toBe(undefined)
   })
 
+  test('Should return all keysValues', () => {
+    const dictionary = dictionaryFactory()
+    dictionary.set('test', 1)
+    dictionary.set('anotherTest', 2)
+
+    expect(dictionary.keyValues()).toStrictEqual([new ValuePair('test', 1), new ValuePair('anotherTest', 2)])
+  })
+
   test('Should return all keys', () => {
     const dictionary = dictionaryFactory()
     dictionary.set('test', 1)
     dictionary.set('anotherTest', 2)
 
-    expect(dictionary.keyValues()).toStrictEqual(['test', 'anotherTest'])
+    expect(dictionary.keys()).toStrictEqual(['test', 'anotherTest'])
   })
 })
