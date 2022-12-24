@@ -5,11 +5,14 @@ interface ITable {
   [key: string]: any
 }
 
-// interface IHashTable {
-//   put(key:)
-// }
+interface IHashTable {
+  put: (key: any, value: any) => boolean
+  get: (key: any) => any
+  size: () => number
+  remove: (key: any) => boolean
+}
 
-export class HashTable {
+export class HashTable implements IHashTable {
   private readonly toStrFn
   private readonly table: ITable
 
@@ -18,8 +21,30 @@ export class HashTable {
     this.table = {}
   }
 
+  remove (key: any): boolean {
+    console.log(this.table)
+
+    const hash = this.hashCode(key)
+    const valuePair = this.table[hash]
+    console.log(valuePair)
+
+    if (valuePair) {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete this.table[hash]
+      return true
+    }
+
+    console.log(key)
+
+    return false
+  }
+
+  size (): number {
+    return Object.keys(this.table).length
+  }
+
   put (key, value): boolean {
-    if (key != null && value != null) {
+    if (key && value) {
       const position = this.hashCode(key)
       this.table[position] = new ValuePair(key, value)
       return true
@@ -28,7 +53,7 @@ export class HashTable {
     return false
   }
 
-  loseloseHashCode (key): number {
+  private loseloseHashCode (key): number {
     if (typeof key === 'number') {
       return key
     }
@@ -42,7 +67,7 @@ export class HashTable {
     return hash % 37
   }
 
-  hashCode (key): number {
+  private hashCode (key): number {
     return this.loseloseHashCode(key)
   }
 
