@@ -38,4 +38,27 @@ describe('Data Structures :: HashTable', () => {
     expect(hashTable.remove('age')).toBeTruthy()
     expect(hashTable.remove('any')).toBeFalsy()
   })
+
+  test('Should generate an collision', () => {
+    const hashTable = hashTableFactory()
+    hashTable.put('Ygritte', 'ygritte@gmail.com')
+    hashTable.put('Jonathan', 'jonathan@email.com')
+    hashTable.put('Nathan', 'nathan@mail.com')
+    hashTable.put('Sargeras', 'sargeras@mail.com')
+
+    expect(hashTable.size()).toBe(3)
+  })
+
+  test('Should return true if HashTable is empty', () => {
+    const hashTable = hashTableFactory()
+
+    expect(hashTable.isEmpty()).toBeTruthy()
+  })
+
+  test('Should return false if HashTable is not empty', () => {
+    const hashTable = hashTableFactory()
+    hashTable.put('Harry', 'potter@mail.com')
+
+    expect(hashTable.isEmpty()).toBeFalsy()
+  })
 })

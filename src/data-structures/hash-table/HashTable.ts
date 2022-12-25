@@ -1,4 +1,4 @@
-import { defaultToString } from '../../utils/defaultToString'
+import { defaultToString } from '../../utils'
 import { ValuePair } from '../dictionary/dictionary'
 
 interface ITable {
@@ -10,31 +10,31 @@ interface IHashTable {
   get: (key: any) => any
   size: () => number
   remove: (key: any) => boolean
+  isEmpty: () => boolean
 }
 
 export class HashTable implements IHashTable {
   private readonly toStrFn
-  private readonly table: ITable
+  readonly table: ITable
 
   constructor (toStrFn = defaultToString) {
     this.toStrFn = toStrFn
     this.table = {}
   }
 
-  remove (key: any): boolean {
-    console.log(this.table)
+  isEmpty (): boolean {
+    return !Object.keys(this.table).length
+  }
 
+  remove (key: any): boolean {
     const hash = this.hashCode(key)
     const valuePair = this.table[hash]
-    console.log(valuePair)
 
     if (valuePair) {
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.table[hash]
       return true
     }
-
-    console.log(key)
 
     return false
   }
@@ -67,7 +67,7 @@ export class HashTable implements IHashTable {
     return hash % 37
   }
 
-  private hashCode (key): number {
+  hashCode (key): number {
     return this.loseloseHashCode(key)
   }
 
@@ -75,9 +75,17 @@ export class HashTable implements IHashTable {
     const valuePair = this.table[this.hashCode(key)]
     return valuePair == null ? undefined : valuePair.value
   }
+
+  printTable (): string {
+    if (this.isEmpty) { return '' }
+    const keys = Object.keys(this.table)
+
+    let objString = `${keys[0]} => ${this?.table[keys[0]].toString() as string || ''}}`
+
+    for (let i = 0; i < keys.length; i++) {
+      objString = `${objString}, ${keys[i]} =>  ${this?.table[keys[i]].toString() as string || ''}`
+    }
+
+    return objString
+  }
 }
-
-const hashTable = new HashTable()
-
-hashTable.put('victor', 'vhmeneghini@gmail.com')
-console.log(hashTable.get('victor'))

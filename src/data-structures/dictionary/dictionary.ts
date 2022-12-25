@@ -1,4 +1,4 @@
-import { defaultToString } from '../../utils/defaultToString'
+import { defaultToString } from '../../utils'
 
 interface IDictionaryTable {
   [key: string]: any
