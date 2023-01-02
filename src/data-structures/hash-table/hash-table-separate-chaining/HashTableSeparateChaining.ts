@@ -16,6 +16,3 @@ export class HashTableSeparateChaining extends HashTable {
     return false
   }
 }
-
-const a = new HashTableSeparateChaining()
-a.put('victor', 'victor@mail.com')
