@@ -10,9 +10,25 @@ export class HashTableSeparateChaining extends HashTable {
         this.table[position] = new LinkedList()
       }
       this.table[position].push(new ValuePair(key, value))
-      console.log(this.table)
       return true
     }
     return false
+  }
+
+  get (key): any {
+    const position = this.hashCode(key)
+    const linkedList = this.table[position]
+
+    if (linkedList && !linkedList.isEmpty()) {
+      let current = linkedList.getHead()
+
+      while (current) {
+        if (current.element.key === key) {
+          return current.element.value
+        }
+        current = current.next
+      }
+    }
+    return undefined
   }
 }
