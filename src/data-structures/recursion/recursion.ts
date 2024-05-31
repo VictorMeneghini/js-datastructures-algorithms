@@ -14,4 +14,4 @@ export const fibonacci = (n: number): any => {
   return fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-console.log(fibonacci(10))
+console.log(fibonacci(6))
